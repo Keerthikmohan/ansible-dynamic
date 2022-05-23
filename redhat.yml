@@ -1,0 +1,31 @@
+---
+
+- name: httpd installation on CentOS
+  ansible.builtin.yum:
+      name: httpd
+      state: "{{ state }}"
+      update_cache: yes
+  notify: Restarting httpd service
+
+- name: verfy the httpd is running
+  ansible.builtin.service_facts:
+    
+- debug:
+    var: ansible_facts.services.httpd.state
+
+- name: installing php pacakages
+  ansible.builtin.yum:
+     name: "{{ pkg }}"
+     state: " {{ state }}"
+
+
+- name: copying index file
+  ansible.builtin.template:
+    src: "{{ index_file }}"
+    dest: "{{ doc_root }}/index.php"
+
+- name: copying config file
+  ansible.builtin.template:
+    src: default-conf.j2
+    dest: "{{ config_httpd }}"
+  notify: Restarting httpd service

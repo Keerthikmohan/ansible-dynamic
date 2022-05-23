@@ -1,0 +1,28 @@
+---
+ - name: installing packages
+   hosts: Keerthi 
+   become: true
+
+   handlers:
+    - name: Restarting Apache2 service
+      include_tasks: handler1.yml
+
+    - name: Restarting httpd service
+      include_tasks: handler2.yml
+
+   vars_files:
+     - vars.yml
+     - php.yml
+
+   tasks:
+    - name: including apache2 Task
+      include_tasks: ubuntu.yml
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: including httpd task
+      include_tasks: redhat.yml
+      when: ansible_facts['os_family'] == "CentOS"
+
+    - name: creating mysql user
+      include_tasks: mysql.yml
+

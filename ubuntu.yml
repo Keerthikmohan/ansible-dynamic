@@ -1,0 +1,35 @@
+---
+
+ - name: Task to install apacahe2 on ubuntu
+   ansible.builtin.apt:
+     name: apache2
+     state: "{{ state }}"
+     update_cache: yes
+   notify: Restarting Apache2 service
+
+ - name: verfy the apache2 is running
+   ansible.builtin.service_facts:
+    
+ - debug:
+    var: ansible_facts.services.apache2.state
+
+ - name: "Repo PHP 7.4"
+   apt_repository:
+     repo="ppa:ondrej/php"
+
+ - name: installing php pacakages
+   ansible.builtin.apt:
+     name: "{{ pkg }}"
+     state: "{{ state }}"
+     update_cache: yes
+
+ - name: copying index file
+   ansible.builtin.template:
+    src: "{{ index_file }}"
+    dest: "{{ doc_root }}/index.php"
+
+ - name: copying config file
+   ansible.builtin.template:
+    src: default-conf.j2
+    dest: "{{ config_path }}"
+   notify: Restarting Apache2 service

@@ -1,0 +1,13 @@
+---
+# defaults file for roles
+
+index_file: index-php.j2
+doc_root: /var/www/html
+port: 5000
+config_path: /etc/apache2/sites-enabled/000-default.conf
+state: present
+php: phpinfo(); 
+modules: phpinfo(INFO_MODULES);
+error_log: ${APACHE_LOG_DIR}/error.log
+access_log: ${APACHE_LOG_DIR}/access.log
+config_httpd: /etc/httpd/httpd.conf.default
