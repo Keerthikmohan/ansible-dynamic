@@ -1,7 +1,8 @@
 ---
  - name: installing packages
-   hosts: Keerthi 
+   hosts: keerthi2
    become: true
+   gather_facts: yes
 
    handlers:
     - name: Restarting Apache2 service

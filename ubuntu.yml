@@ -7,11 +7,11 @@
      update_cache: yes
    notify: Restarting Apache2 service
 
- - name: verfy the apache2 is running
-   ansible.builtin.service_facts:
-    
- - debug:
-    var: ansible_facts.services.apache2.state
+ #- name: verfy the apache2 is running
+  # ansible.builtin.service_facts:
+
+# - debug:
+ #    var: ansible_facts.services.apache2.state
 
  - name: "Repo PHP 7.4"
    apt_repository:
